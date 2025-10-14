@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/ours.jpg" type="image/png">
+</head>
+<body class="home">
+
+  <!-- Emplacement du menu -->
+  <div id="menu-placeholder"></div>
+
+  <main class="content">
+    <h1>Bienvenue sur Home-Fonta.fr</h1>
+    <p>Entre passion, photos et services en ligne.</p>
+  </main>
+
+  <footer>
+    Hébergé en France — © 2025 Home-Fonta.fr
+  </footer>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuPath = window.location.pathname.replace(/[^\/]*$/, '') + "menu.html?nocache=" + Date.now();
+
+    fetch(menuPath, { cache: "no-store" })
+      .then(res => {
+        if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+        return res.text();
+      })
+      .then(html => {
+        // Insère le menu HTML
+        document.getElementById("menu-placeholder").innerHTML = html;
+
+        // === CRÉE LE BOUTON ☰ ET L’OVERLAY ===
+        const toggleButton = document.createElement("button");
+        toggleButton.classList.add("menu-toggle");
+        toggleButton.textContent = "☰";
+        document.body.appendChild(toggleButton);
+
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        document.body.appendChild(overlay);
+
+        // === ACTIVE LE MENU ===
+        const sidebar = document.querySelector(".sidebar");
+        if (!sidebar) {
+          console.error("Sidebar introuvable après chargement !");
+          return;
+        }
+
+        const toggleMenu = () => {
+          sidebar.classList.toggle("show");
+          overlay.classList.toggle("show");
+        };
+
+        toggleButton.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", toggleMenu);
+      })
+      .catch(err => {
+        console.error("Impossible de charger le menu :", err);
+        document.getElementById("menu-placeholder").innerHTML =
+          "<p style='color:red; text-align:center;'>Erreur de chargement du menu.</p>";
+      });
+  });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

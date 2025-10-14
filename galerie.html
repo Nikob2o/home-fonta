@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="galerie-page">
+  <!-- Emplacement du menu (chargé dynamiquement) -->
+  <div id="menu-placeholder"></div>
+
+  <main class="gallery-fullscreen">
+    <img src="images/pyrénées.jpg" alt="Pyrénées">
+    <img src="images/Seceda3.jpg" alt="Seceda">
+    <img src="images/turin1.jpg" alt="Turin">
+    <img src="images/Bust.jpg" alt="Bust">
+    <img src="images/Cascade.jpg" alt="Cascade">
+    <img src="images/Criquet.jpg" alt="Criquet">
+    <img src="images/Dome.jpg" alt="Dome">
+    <img src="images/Eglise_avion.jpg" alt="Eglise_avion">
+    <img src="images/Gavarnie3.jpg" alt="Gavarnie3">
+    <img src="images/lune_couple.jpg" alt="lune_couple">
+    <img src="images/m31_first_z6.jpg" alt="m31_first_z6">
+    <img src="images/Mountain2.jpg" alt="Mountain2">
+    <img src="images/Mt-St-Michel-nuit.jpg" alt="Mt-St-Michel-nuit">
+    <img src="images/Parachute.jpg" alt="Parachute">
+    <img src="images/Pluie-branche.jpg" alt="Pluie-branche">
+    <img src="images/pointe-du-raz-coie-lactée.jpg" alt="pointe-du-raz-coie-lactée">
+    <img src="images/venise_night2.jpg" alt="venise_night2">
+    <img src="images/venise_night.jpg" alt="venise_night">
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">✖</span>
+    <span class="prev" onclick="changeImage(-1)">⟨</span>
+    <img id="lightbox-img" src="">
+    <span class="next" onclick="changeImage(1)">⟩</span>
+  </div>
+
+  <!-- Script de chargement du menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const baseUrl = window.location.origin;
+      const menuPath = `${baseUrl}/menu.html?nocache=${Date.now()}`;
+      
+      fetch(menuPath, { cache: "no-store" })
+        .then(res => {
+          if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+          return res.text();
+        })
+        .then(html => {
+          document.getElementById("menu-placeholder").innerHTML = html;
+
+          // Création du bouton menu et overlay
+          const toggleButton = document.createElement("button");
+          toggleButton.classList.add("menu-toggle");
+          toggleButton.textContent = "☰";
+          document.body.appendChild(toggleButton);
+
+          const overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          document.body.appendChild(overlay);
+
+          const sidebar = document.querySelector(".sidebar");
+          const toggleMenu = () => {
+            sidebar.classList.toggle("show");
+            overlay.classList.toggle("show");
+          };
+
+          toggleButton.addEventListener("click", toggleMenu);
+          overlay.addEventListener("click", toggleMenu);
+        })
+        .catch(err => {
+          console.error("Impossible de charger le menu :", err);
+          document.getElementById("menu-placeholder").innerHTML =
+            "<p style='color:red; text-align:center;'>Erreur de chargement du menu.</p>";
+        });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
