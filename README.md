@@ -177,13 +177,19 @@ nano index.html        # ou votre éditeur préféré
 # 2. (Optionnel) Tester localement
 python3 server.py      # Lance le serveur sur http://localhost:8000
 
-# 3. Déployer en production
-./deploy.sh
+# 3. Commit (le déploiement se fait automatiquement)
+git add .
+git commit -m "Description des modifications"
+git push
+
+# ✨ Le script deploy.sh s'exécute automatiquement lors du commit !
 
 # 4. Vérifier que tout fonctionne
 # Ouvrir https://home-fonta.fr dans le navigateur
 # Vider le cache si nécessaire (Ctrl+Shift+R)
 ```
+
+**Note :** Le déploiement est automatisé via un hook Git qui exécute `deploy.sh` à chaque commit.
 
 ### **Ce que fait deploy.sh automatiquement**
 
