@@ -19,33 +19,33 @@
 │  Internet   │
 └──────┬──────┘
        │ HTTPS (port 443)
-              ↓
-	      ┌─────────────────────────────────┐
-	      │  Nginx (Reverse Proxy)          │
-	      │  - Gère SSL/TLS                 │
-	      │  - Logs des accès               │
-	      │  - Redirection HTTP → HTTPS     │
-	      └──────┬──────────────────────────┘
-	             │ HTTP (localhost:8000)
-		            ↓
-			    ┌─────────────────────────────────┐
-			    │  Python (Serveur Web)           │
-			    │  - http.server                  │
-			    │  - Tourne en arrière-plan       │
-			    │  - Géré par systemd             │
-			    └──────┬──────────────────────────┘
-			           │
-				          ↓
-					  ┌─────────────────────────────────┐
-					  │  Fichiers statiques             │
-					  │  /var/www/html/home-fonta/      │
-					  │  - HTML, CSS, JS, images        │
-					  └─────────────────────────────────┘
-					  ```
+       ↓
+┌─────────────────────────────────┐
+│  Nginx (Reverse Proxy)          │
+│  - Gère SSL/TLS                 │
+│  - Logs des accès               │
+│  - Redirection HTTP → HTTPS     │
+└──────┬──────────────────────────┘
+       │ HTTP (localhost:8000)
+       ↓
+┌─────────────────────────────────┐
+│  Python (Serveur Web)           │
+│  - http.server                  │
+│  - Tourne en arrière-plan       │
+│  - Géré par systemd             │
+└──────┬──────────────────────────┘
+       │
+       ↓
+┌─────────────────────────────────┐
+│  Fichiers statiques             │
+│  /var/www/html/home-fonta/      │
+│  - HTML, CSS, JS, images        │
+└─────────────────────────────────┘
+```
 
-					  **Résumé :** Nginx reçoit les requêtes HTTPS et les redirige vers Python qui sert les fichiers.
+**Résumé :** Nginx reçoit les requêtes HTTPS et les redirige vers Python qui sert les fichiers.
 
-					  ---
+---
 
 ## ⚙️ Comment ça fonctionne {#fonctionnement}
 
@@ -100,16 +100,16 @@ http.server.SimpleHTTPRequestHandler(directory=DIRECTORY)
 **Configuration simplifiée :**
 ```nginx
 server {
-	    listen 443 ssl;
-	        server_name home-fonta.fr;
-		    
-		        # Certificats SSL
-			    ssl_certificate /etc/letsencrypt/live/home-fonta.fr/fullchain.pem;
-			        
-				    # Proxy vers Python
-				        location / {
-						        proxy_pass http://127.0.0.1:8000;
-							    }
+    listen 443 ssl;
+    server_name home-fonta.fr;
+    
+    # Certificats SSL
+    ssl_certificate /etc/letsencrypt/live/home-fonta.fr/fullchain.pem;
+    
+    # Proxy vers Python
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+    }
 }
 ```
 
@@ -146,8 +146,8 @@ server {
 │   │
 └── 📖 Documentation
     ├── README.md                 # Ce fichier
-        └── QUICK_START.md            # Guide rapide
-	```
+    └── QUICK_START.md            # Guide rapide
+```
 
 ### **Production** : `/var/www/html/home-fonta/`
 
