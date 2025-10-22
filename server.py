@@ -16,10 +16,15 @@ from datetime import datetime
 
 # Configuration
 PORT = 8000
-HOST = "127.0.0.1"  # Écoute uniquement sur localhost (Nginx fera le proxy)
+HOST = "127.0.0.1"
+DIRECTORY = "/var/www/html/home-fonta"  # ← AJOUT : Forcer le répertoire
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     """Handler HTTP personnalisé"""
+    
+    def __init__(self, *args, **kwargs):
+        # Forcer le répertoire à servir
+        super().__init__(*args, directory=DIRECTORY, **kwargs)
     
     def log_message(self, format, *args):
         """Logs avec timestamp"""
@@ -44,6 +49,9 @@ def signal_handler(sig, frame):
 def main():
     """Démarre le serveur"""
     
+    # Changer le répertoire de travail
+    os.chdir(DIRECTORY)
+    
     # Gestion des signaux
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
@@ -53,6 +61,7 @@ def main():
             print("=" * 60)
             print("🚀 Serveur Home-Fonta.fr démarré")
             print("=" * 60)
+            print(f"📂 Répertoire : {DIRECTORY}")
             print(f"🌐 Écoute sur : http://{HOST}:{PORT}")
             print(f"⏰ Démarré à  : {datetime.now().strftime('%H:%M:%S')}")
             print(f"💡 Pour arrêter : Ctrl+C")
