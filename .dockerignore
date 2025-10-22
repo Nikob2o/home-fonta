@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Scripts d'installation (non nécessaires dans Docker)
+deploy.sh
+install-service.sh
+install-nginx.sh
+
+# Documentation
+README.md
+QUICK_START.md
+README-DOCKER.md
+
+# Configurations système (non utilisées dans Docker)
+home-fonta.service
+nginx-home-fonta.conf
+
+# Sauvegardes
+*.backup
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Logs
+*.log
