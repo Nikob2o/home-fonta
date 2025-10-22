@@ -10,18 +10,14 @@
   <div id="menu-placeholder"></div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const menuPath = window.location.origin + "./menu.html?nocache=" + Date.now();
-      fetch(menuPath)
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById("menu-placeholder").innerHTML = html;
-        })
-        .catch(err => {
-          console.error("Erreur de chargement du menu :", err);
-        });
-    });
+  fetch("./menu.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("menu-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Erreur de chargement du menu :", err));
   </script>
+
 
   <main class="content">
     <h1>Mes Services</h1>
