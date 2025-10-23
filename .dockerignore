@@ -27,3 +27,19 @@ __pycache__/
 
 # Logs
 *.log
+# Anciens fichiers Python
+server.py.systemd-backup
+server.py
+
+# Flask
+*.pyc
+__pycache__/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Backups Docker
+*.backup
+Dockerfile.python-backup
+docker-compose.yml.python-backup
