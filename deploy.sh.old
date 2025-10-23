@@ -27,6 +27,13 @@ if [ -d "$DEST" ] && [ "$(ls -A $DEST)" ]; then
     echo "   ✅ OK"
 fi
 
+# Arrêter le service
+if systemctl is-active --quiet "$SERVICE_NAME" 2>/dev/null; then
+    echo "⏸️  Arrêt du service..."
+    sudo systemctl stop "$SERVICE_NAME"
+    echo "   ✅ OK"
+fi
+
 # Synchroniser les fichiers
 echo "🔄 Copie des fichiers..."
 sudo rsync -av --delete \
@@ -45,7 +52,27 @@ echo "   ✅ OK"
 echo "🔐 Permissions..."
 sudo chown -R "$USER":"$GROUP" "$DEST"
 sudo chmod -R 755 "$DEST"
+sudo chmod 755 "$DEST/server.py"
 echo "   ✅ OK"
+
+# Redémarrer le service
+if [ -f "/etc/systemd/system/$SERVICE_NAME.service" ]; then
+    echo "▶️  Démarrage du service..."
+    sudo systemctl daemon-reload
+    sudo systemctl start "$SERVICE_NAME"
+    sleep 2
+    
+    if systemctl is-active --quiet "$SERVICE_NAME"; then
+        echo "   ✅ Service actif"
+    else
+        echo "   ❌ Erreur de démarrage !"
+        sudo journalctl -u "$SERVICE_NAME" -n 10 --no-pager
+        exit 1
+    fi
+else
+    echo "⚠️  Service non installé"
+    echo "   💡 Lancez : ./install-service.sh"
+fi
 
 # Recharger Nginx
 if command -v nginx &> /dev/null; then
