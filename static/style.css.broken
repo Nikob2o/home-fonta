@@ -1,0 +1,332 @@
+/* === IMPORT DES POLICES === */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:wght@400;500&display=swap');
+
+/* === RESET GÉNÉRAL === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === CORPS PRINCIPAL === */
+body {
+  font-family: 'Cinzel', serif;
+  color: #fff;
+  background: url("images/Macro_briquet.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+/* === DÉCORATIONS === */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("images/fleur-de-lys.svg");
+  background-repeat: repeat;
+  background-size: 100px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  content: "✠ Deus Vult ✠";
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === MENU LATÉRAL === */
+.sidebar {
+  position: fixed !important;
+  left: -300px !important;
+  top: 0 !important;
+  width: 250px;
+  height: 100%;
+  background: #2c3e50;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.show {
+  left: 0 !important;
+}
+
+.sidebar.show {
+  left: 0;
+
+.sidebar a {
+  display: block;
+  font-family: 'Cinzel', serif;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* === BOUTON MENU (☰) === */
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  padding: 10px 13px;
+  font-size: 1.3em;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1300;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+
+/* === OVERLAY === */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 900;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* === CONTENU === */
+main.content {
+  z-index: 10;
+  text-align: center;
+  margin-top: 100px;
+  transition: margin-left 0.3s ease-in-out;
+  color: #fdfdfd;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.sidebar.show ~ main.content {
+  margin-left: 220px;
+}
+
+/* === TITRES & TEXTES === */
+h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+p {
+  font-family: 'Lora', serif;
+  font-size: 1.2em;
+  color: #f5f5f5;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  font-size: 0.9em;
+  color: #ddd;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8);
+  z-index: 10;
+}
+
+/* === GALERIE === */
+.gallery, .gallery-fullscreen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  justify-content: center;
+}
+
+.gallery img, .gallery-fullscreen img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.gallery img:hover, .gallery-fullscreen img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-fullscreen img {
+  width: 100%;
+  height: 200px; /* hauteur uniforme pour toutes les miniatures */
+  object-fit: cover; /* découpe l'image pour remplir le cadre */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.gallery-fullscreen img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* === LIGHTBOX === */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.lightbox.show {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+}
+
+.lightbox .close,
+.lightbox .prev,
+.lightbox .next {
+  position: absolute;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lightbox .close {
+  top: 20px;
+  right: 30px;
+}
+
+.lightbox .prev {
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox .next {
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.presentation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 800px;
+  text-align: center;
+  color: #fff;
+  line-height: 1.8;
+}
+
+/* === LOGO === */
+.menu-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.menu-logo img {
+  width: 80px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .menu-logo img {
+    width: 50px;
+  }
+}
+
+
+/* === LIENS SERVICES === */
+.link-list a {
+  display: inline-block;
+  margin: 10px;
+  padding: 15px 25px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.link-list a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.05);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .sidebar.show ~ main.content {
+    margin-left: 0;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+}
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Présentation - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="https://cdn.home-fonta.fr/images/style.css">
+  <link rel="icon" href="https://cdn.home-fonta.fr/images/ours.jpg" type="image/png">
+</head>
+<body class="presentation">
+  <!-- Emplacement du menu -->
+  <div id="menu-placeholder"></div>
+  
+  <main class="content">
+	  <div class="presentation">
+    		<h1>Présentation</h1>
+	    <p>
+	      Passionné par la technologie, la photo et l’automatisation.<br><br>
+	      Ce site rassemble mes projets, mes idées, et quelques clichés que j’ai réalisés.<br><br>
+	    </p>
+	 </div>
+  </main>
+  
+  <footer>
+    Hébergé en France — © 2025 Home-Fonta.fr
+  </footer>
+  
+  <!-- Chargement du menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/menu")
+        .then(res => {
+          if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+          return res.text();
+        })
+        .then(html => {
+          const placeholder = document.getElementById("menu-placeholder");
+          if (placeholder) placeholder.innerHTML = html;
+          
+          const toggleButton = document.createElement("button");
+          toggleButton.classList.add("menu-toggle");
+          toggleButton.textContent = "☰";
+          document.body.appendChild(toggleButton);
+          
+          const overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          document.body.appendChild(overlay);
+          
+          setTimeout(() => {
+            const sidebar = document.querySelector(".sidebar");
+            if (!sidebar) return;
+            
+            const toggleMenu = () => {
+              sidebar.classList.toggle("show");
+              overlay.classList.toggle("show");
+            };
+            
+            toggleButton.addEventListener("click", toggleMenu);
+            overlay.addEventListener("click", toggleMenu);
+          }, 100);
+        })
+        .catch(err => console.error("Erreur menu:", err));
+    });
+  </script>
+  
+  <script src="https://cdn.home-fonta.fr/images/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
+</head>
+<body class="galerie">
+  <!-- Emplacement du menu -->
+  <div id="menu-placeholder"></div>
+  
+  <main class="content">
+    <h1>Galerie Photos</h1>
+    <div class="gallery-fullscreen">
+      <img src="{{ url_for('static', filename='images/aigle.jpg') }}" alt="Aigle">
+      <img src="{{ url_for('static', filename='images/Bust.jpg') }}" alt="Buste">
+      <img src="{{ url_for('static', filename='images/Cascade.jpg') }}" alt="Cascade">
+      <img src="{{ url_for('static', filename='images/Criquet.jpg') }}" alt="Criquet">
+      <img src="{{ url_for('static', filename='images/Dome.jpg') }}" alt="Dôme">
+      <img src="{{ url_for('static', filename='images/Eglise_avion.jpg') }}" alt="Église avion">
+      <img src="{{ url_for('static', filename='images/Gavarnie3.jpg') }}" alt="Gavarnie">
+      <img src="{{ url_for('static', filename='images/lune_couple.jpg') }}" alt="Lune couple">
+      <img src="{{ url_for('static', filename='images/m31_first_z6.jpg') }}" alt="M31">
+      <img src="{{ url_for('static', filename='images/Macro_briquet.jpg') }}" alt="Macro briquet">
+      <img src="{{ url_for('static', filename='images/Mountain2.jpg') }}" alt="Montagne">
+      <img src="{{ url_for('static', filename='images/Mt-St-Michel-nuit.jpg') }}" alt="Mont Saint-Michel">
+      <img src="{{ url_for('static', filename='images/ours.jpg') }}" alt="Ours">
+      <img src="{{ url_for('static', filename='images/Parachute.jpg') }}" alt="Parachute">
+      <img src="{{ url_for('static', filename='images/Pluie-branche.jpg') }}" alt="Pluie branche">
+      <img src="{{ url_for('static', filename='images/pointe-du-raz-coie-lactée.jpg') }}" alt="Pointe du Raz">
+      <img src="{{ url_for('static', filename='images/pyrénées.jpg') }}" alt="Pyrénées">
+      <img src="{{ url_for('static', filename='images/Seceda3.jpg') }}" alt="Seceda">
+      <img src="{{ url_for('static', filename='images/turin1.jpg') }}" alt="Turin">
+      <img src="{{ url_for('static', filename='images/venise_night.jpg') }}" alt="Venise nuit">
+      <img src="{{ url_for('static', filename='images/venise_night2.jpg') }}" alt="Venise nuit 2">
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+      <span class="close">&times;</span>
+      <img id="lightbox-img" src="" alt="">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </main>
+  
+  <footer>
+    Hébergé en France — © 2025 Home-Fonta.fr
+  </footer>
+  
+  <!-- Chargement du menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/menu")
+        .then(res => {
+          if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+          return res.text();
+        })
+        .then(html => {
+          const placeholder = document.getElementById("menu-placeholder");
+          if (placeholder) {
+            placeholder.innerHTML = html;
+          }
+          
+          const toggleButton = document.createElement("button");
+          toggleButton.classList.add("menu-toggle");
+          toggleButton.textContent = "☰";
+          document.body.appendChild(toggleButton);
+          
+          const overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          document.body.appendChild(overlay);
+          
+          setTimeout(() => {
+            const sidebar = document.querySelector(".sidebar");
+            if (!sidebar) return;
+            
+            const toggleMenu = () => {
+              sidebar.classList.toggle("show");
+              overlay.classList.toggle("show");
+            };
+            
+            toggleButton.addEventListener("click", toggleMenu);
+            overlay.addEventListener("click", toggleMenu);
+          }, 100);
+        })
+        .catch(err => {
+          console.error("Erreur menu:", err);
+        });
+    });
+  </script>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

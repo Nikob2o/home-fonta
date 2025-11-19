@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
+</head>
+<body class="home">
+  <!-- Emplacement du menu -->
+  <div id="menu-placeholder"></div>
+  
+  <main class="content">
+    <h1>Bienvenue sur Home-Fonta.fr</h1>
+    <p>Nouveau site pour partager mes projets, photos et services en ligne.</p>
+  </main>
+  
+  <footer>
+    Hébergé en France — © 2025 Home-Fonta.fr
+  </footer>
+  
+  <!-- Chargement du menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("=== Chargement du menu ===");
+      
+      fetch("/menu")
+        .then(res => {
+          console.log("Réponse menu:", res.status);
+          if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+          return res.text();
+        })
+        .then(html => {
+          console.log("Menu HTML reçu, longueur:", html.length);
+          
+          // Insère le menu HTML
+          const placeholder = document.getElementById("menu-placeholder");
+          if (placeholder) {
+            placeholder.innerHTML = html;
+            console.log("Menu inséré dans le DOM");
+          }
+          
+          // Création du bouton ☰
+          const toggleButton = document.createElement("button");
+          toggleButton.classList.add("menu-toggle");
+          toggleButton.textContent = "☰";
+          document.body.appendChild(toggleButton);
+          console.log("Bouton toggle créé");
+          
+          // Création de l'overlay
+          const overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          document.body.appendChild(overlay);
+          console.log("Overlay créé");
+          
+          // Attendre que tout soit dans le DOM
+          setTimeout(() => {
+            const sidebar = document.querySelector(".sidebar");
+            if (!sidebar) {
+              console.error("❌ Sidebar introuvable !");
+              return;
+            }
+            
+            console.log("✅ Sidebar trouvée, ajout event listeners");
+            
+            const toggleMenu = () => {
+              console.log("Toggle menu");
+              sidebar.classList.toggle("show");
+              overlay.classList.toggle("show");
+            };
+            
+            toggleButton.addEventListener("click", toggleMenu);
+            overlay.addEventListener("click", toggleMenu);
+            
+            console.log("✅ Menu prêt !");
+          }, 100);
+        })
+        .catch(err => {
+          console.error("❌ Erreur chargement menu:", err);
+          document.getElementById("menu-placeholder").innerHTML =
+            '<p style="color:red; text-align:center;">Erreur de chargement du menu: ' + err.message + '</p>';
+        });
+    });
+  </script>
+  
+  <!-- Scripts JavaScript additionnels -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
