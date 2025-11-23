@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Présentation - Home-Fonta.fr</title>
-  <link rel="stylesheet" href="https://cdn.home-fonta.fr/images/style.css">
-  <link rel="icon" href="https://cdn.home-fonta.fr/images/ours.jpg" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
 </head>
-<body class="presentation">
+  <body class="page-presentation">
   <!-- Emplacement du menu -->
   <div id="menu-placeholder"></div>
   
   <main class="content">
-	  <div class="presentation">
+        	<div class="presentation-content">
     		<h1>Présentation</h1>
 	    <p>
 	      Passionné par la technologie, la photo et l’automatisation.<br><br>
@@ -63,6 +63,6 @@
     });
   </script>
   
-  <script src="https://cdn.home-fonta.fr/images/script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

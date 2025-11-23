@@ -262,7 +262,7 @@ footer {
   transform: translateY(-50%);
 }
 
-.presentation-content {
+.presentation {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -273,7 +273,6 @@ footer {
   color: #fff;
   line-height: 1.8;
 }
-
 
 /* === LOGO === */
 .menu-logo {

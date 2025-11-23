@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galerie - Home-Fonta.fr</title>
-  <link rel="stylesheet" href="https://cdn.home-fonta.fr/images/style.css">
-  <link rel="icon" href="https://cdn.home-fonta.fr/images/ours.jpg" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
 </head>
 <body class="galerie">
   <!-- Emplacement du menu -->
@@ -14,27 +14,26 @@
   <main class="content">
     <h1>Galerie Photos</h1>
     <div class="gallery-fullscreen">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/aigle.jpg" alt="Aigle">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Bust.jpg" alt="Buste">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Cascade.jpg" alt="Cascade">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Criquet.jpg" alt="Criquet">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Dome.jpg" alt="Dôme">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Eglise_avion.jpg" alt="Église avion">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Gavarnie3.jpg" alt="Gavarnie">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/lune_couple.jpg" alt="Lune couple">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/m31_first_z6.jpg" alt="M31">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Macro_briquet.jpg" alt="Macro briquet">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Mountain2.jpg" alt="Montagne">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Mt-St-Michel-nuit.jpg" alt="Mont Saint-Michel">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/ours.jpg" alt="Ours">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Parachute.jpg" alt="Parachute">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Pluie-branche.jpg" alt="Pluie branche">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/pointe-du-raz-coie-lactée.jpg" alt="Pointe du Raz">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/pyrénées.jpg" alt="Pyrénées">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/Seceda3.jpg" alt="Seceda">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/turin1.jpg" alt="Turin">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/venise_night.jpg" alt="Venise nuit">
-      <img loading="lazy" src="https://cdn.home-fonta.fr/images/venise_night2.jpg" alt="Venise nuit 2">
+      <img loading="lazy" src="{{ url_for('static', filename='images/aigle.jpg') }}" alt="Aigle">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Bust.jpg') }}" alt="Buste">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Cascade.jpg') }}" alt="Cascade">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Criquet.jpg') }}" alt="Criquet">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Dome.jpg') }}" alt="Dôme">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Eglise_avion.jpg') }}" alt="Église avion">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Gavarnie3.jpg') }}" alt="Gavarnie">
+      <img loading="lazy" src="{{ url_for('static', filename='images/lune_couple.jpg') }}" alt="Lune couple">
+      <img loading="lazy" src="{{ url_for('static', filename='images/m31_first_z6.jpg') }}" alt="M31">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Macro_briquet.jpg') }}" alt="Macro briquet">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Mountain2.jpg') }}" alt="Montagne">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Mt-St-Michel-nuit.jpg') }}" alt="Mont Saint-Michel">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Parachute.jpg') }}" alt="Parachute">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Pluie-branche.jpg') }}" alt="Pluie branche">
+      <img loading="lazy" src="{{ url_for('static', filename='images/pointe-du-raz-coie-lactée.jpg') }}" alt="Pointe du Raz">
+      <img loading="lazy" src="{{ url_for('static', filename='images/pyrénées.jpg') }}" alt="Pyrénées">
+      <img loading="lazy" src="{{ url_for('static', filename='images/Seceda3.jpg') }}" alt="Seceda">
+      <img loading="lazy" src="{{ url_for('static', filename='images/turin1.jpg') }}" alt="Turin">
+      <img loading="lazy" src="{{ url_for('static', filename='images/venise_night.jpg') }}" alt="Venise nuit">
+      <img loading="lazy" src="{{ url_for('static', filename='images/venise_night2.jpg') }}" alt="Venise nuit 2">
     </div>
 
     <!-- Lightbox -->
@@ -92,6 +91,6 @@
     });
   </script>
   
-  <script src="https://cdn.home-fonta.fr/images/script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

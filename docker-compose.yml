@@ -1,26 +1,14 @@
 services:
-  # Serveur Flask + Gunicorn
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: home-fonta-flask
+    container_name: home-fonta
     restart: unless-stopped
     ports:
-      - "127.0.0.1:8002:8000"  # Port 8002 pour tester Flask en parallèle
-    volumes:
-      - ./:/app:ro  # Lecture seule
-    environment:
-      - PORT=8000
-      - FLASK_ENV=production
+      - "8080:80"  # NGINX exposé en local pour tests
     networks:
       - home-fonta-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
     logging:
       driver: "json-file"
       options:
@@ -30,3 +18,4 @@ services:
 networks:
   home-fonta-network:
     driver: bridge
+

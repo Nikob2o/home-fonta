@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.querySelector('link[rel="icon"]')) {
     const favicon = document.createElement("link");
     favicon.rel = "icon";
-    favicon.href = "https://cdn.home-fonta.fr/images/ours.jpg";
+    favicon.href = "/static/images/ours.jpg";
     favicon.type = "image/png";
     document.head.appendChild(favicon);
   }
