@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import os
 
 app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
 
@@ -8,25 +7,31 @@ app = Flask(__name__, static_url_path='/static', static_folder='static', templat
 def index():
     return render_template('index.html')
 
+
 @app.route('/presentation')
 def presentation():
     return render_template('presentation.html')
+
 
 @app.route('/galerie')
 def galerie():
     return render_template('galerie.html')
 
+
 @app.route('/services')
 def services():
     return render_template('services.html')
+
 
 @app.route('/menu')
 def menu():
     return render_template('menu.html')
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=False)
