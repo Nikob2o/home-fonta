@@ -1,5 +1,7 @@
 # 🏰 Home-Fonta.fr - Documentation complète
 
+![CI Status](https://github.com/Nikob2o/home-fonta/actions/workflows/ci.yml/badge.svg)
+
 ## 📋 Table des matières
 
 1. [Architecture du serveur](#architecture)
