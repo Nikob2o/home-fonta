@@ -1,6 +1,8 @@
 # 🏰 Home-Fonta.fr - Documentation complète
 
 ![CI Status](https://github.com/Nikob2o/home-fonta/actions/workflows/ci.yml/badge.svg)
+![Docker Build](https://github.com/Nikob2o/home-fonta/actions/workflows/docker-build.yml/badge.svg)
+[![Docker Hub](https://img.shields.io/docker/v/nocoblas/home-fonta-web?label=Docker%20Hub&logo=docker)](https://hub.docker.com/r/nocoblas/home-fonta-web)
 
 ## 📋 Table des matières
 
