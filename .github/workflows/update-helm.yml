@@ -56,14 +56,9 @@ jobs:
           if git diff --staged --quiet; then
             echo "⚠️  No changes to commit"
           else
-            git commit -m "🤖 Update home-fonta image to ${{ steps.image_tag.outputs.tag }}
-
-Triggered by: ${{ github.event.workflow_run.head_commit.message }}
-Commit: ${{ github.event.workflow_run.head_sha }}
-
-🔗 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+            git commit -m "Update home-fonta image to ${{ steps.image_tag.outputs.tag }}" \
+                       -m "Triggered by workflow" \
+                       -m "Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 
             git push
 
