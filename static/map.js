@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Le dashLength + dashGap crée l'effet de pointillés animés
     // dashAnimateTime contrôle la vitesse de l'animation (ms pour traverser le globe)
     .arcColor(d => [ARC_COLOR_START, ARC_COLOR_END])
-    .arcStroke(d => Math.min(0.2 + Math.log2(d.count + 1) * 0.1, 1.2))
+    .arcStroke(0.2)
     .arcDashLength(0.6)
     .arcDashGap(0.3)
     .arcDashAnimateTime(2000)
