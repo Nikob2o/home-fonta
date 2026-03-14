@@ -49,6 +49,62 @@ body.map-page::before {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.1);
 }
 
+/* --- En-tête du panneau (titre + bouton replier) --- */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+#panel-toggle {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#panel-toggle:hover {
+  background: rgba(0, 255, 255, 0.15);
+  border-color: rgba(0, 255, 255, 0.4);
+}
+
+/* Rotation du chevron quand le panneau est replié */
+#stats-panel.collapsed #panel-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* --- Contenu repliable --- */
+.panel-content {
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  max-height: 600px;
+  opacity: 1;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+/* Quand le panneau est replié, le contenu disparaît */
+#stats-panel.collapsed .panel-content {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+/* Le panneau replié ne garde que la barre de titre */
+#stats-panel.collapsed {
+  padding: 12px 20px;
+}
+
 #stats-panel h2 {
   font-family: 'Cinzel', serif;
   font-size: 1.3em;
@@ -56,6 +112,11 @@ body.map-page::before {
   color: #0ff;
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   letter-spacing: 1px;
+}
+
+/* Quand replié, pas de marge sous le h2 */
+#stats-panel.collapsed h2 {
+  margin-bottom: 0;
 }
 
 #stats-panel h3 {
@@ -305,6 +366,18 @@ body.map-page.view-2d #globe-container {
 
 .leaflet-popup-content strong {
   color: #0ff;
+}
+
+/* --- Boutons zoom Leaflet (style dark cohérent) --- */
+.leaflet-control-zoom a {
+  background: rgba(10, 10, 30, 0.8) !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(0, 255, 255, 0.2) !important;
+  color: #0ff !important;
 }
 
 /* Masquer le bouton de fermeture par défaut de Leaflet (optionnel) */

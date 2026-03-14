@@ -22,38 +22,49 @@
 
   <!-- Panneau de légende / statistiques (en bas à gauche) -->
   <div id="stats-panel">
-    <h2>Connexions</h2>
-
-    <!-- Sélecteur de période — le JS écoute les clics pour changer le range -->
-    <div class="time-selector">
-      <button data-range="5m">5m</button>
-      <button data-range="15m">15m</button>
-      <button data-range="1h" class="active">1h</button>
-      <button data-range="6h">6h</button>
-      <button data-range="24h">24h</button>
+    <!-- Barre de titre avec bouton replier/déplier (chevron) -->
+    <div class="panel-header">
+      <h2>Connexions</h2>
+      <button id="panel-toggle" title="Replier">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+        </svg>
+      </button>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-value" id="total-ips">-</span>
-        <span class="stat-label">IPs uniques</span>
+    <!-- Contenu repliable du panneau -->
+    <div class="panel-content">
+      <!-- Sélecteur de période — le JS écoute les clics pour changer le range -->
+      <div class="time-selector">
+        <button data-range="5m">5m</button>
+        <button data-range="15m">15m</button>
+        <button data-range="1h" class="active">1h</button>
+        <button data-range="6h">6h</button>
+        <button data-range="24h">24h</button>
       </div>
-      <div class="stat-item">
-        <span class="stat-value" id="total-hits">-</span>
-        <span class="stat-label">Requetes</span>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value" id="total-ips">-</span>
+          <span class="stat-label">IPs uniques</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="total-hits">-</span>
+          <span class="stat-label">Requêtes</span>
+        </div>
       </div>
+
+      <h3>Top pays</h3>
+      <ul id="top-countries">
+        <li>Chargement...</li>
+      </ul>
+
+      <!-- Feed des dernières connexions détectées -->
+      <h3>Dernières connexions</h3>
+      <ul id="recent-feed" class="recent-feed">
+        <li>Chargement...</li>
+      </ul>
     </div>
-
-    <h3>Top pays</h3>
-    <ul id="top-countries">
-      <li>Chargement...</li>
-    </ul>
-
-    <!-- Feed des dernières connexions détectées -->
-    <h3>Dernieres connexions</h3>
-    <ul id="recent-feed" class="recent-feed">
-      <li>Chargement...</li>
-    </ul>
   </div>
 
   <!-- Toggle 2D / 3D (en haut à droite, à côté du fullscreen) -->

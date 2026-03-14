@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Le dashLength + dashGap crée l'effet de pointillés animés
     // dashAnimateTime contrôle la vitesse de l'animation (ms pour traverser le globe)
     .arcColor(d => [ARC_COLOR_START, ARC_COLOR_END])
-    .arcStroke(d => Math.min(0.5 + Math.log2(d.count + 1) * 0.3, 3))
+    .arcStroke(d => Math.min(0.2 + Math.log2(d.count + 1) * 0.1, 1.2))
     .arcDashLength(0.6)
     .arcDashGap(0.3)
     .arcDashAnimateTime(2000)
@@ -200,6 +200,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ---- Panneau repliable ----
+  // Le bouton chevron et le header du panneau permettent de replier/déplier
+  // le contenu. On toggle la classe "collapsed" sur #stats-panel.
+  const statsPanel = document.getElementById("stats-panel");
+  const panelHeader = document.querySelector(".panel-header");
+
+  panelHeader.addEventListener("click", () => {
+    statsPanel.classList.toggle("collapsed");
+  });
+
   // ---- Bouton plein écran ----
   // L'API Fullscreen du navigateur permet de passer n'importe quel élément
   // en plein écran. On l'applique à tout le <body> (le document entier).
@@ -223,9 +233,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const leafletMap = L.map("map-container", {
     center: [30, 10],
     zoom: 3,
-    zoomControl: true,
+    zoomControl: false,
     attributionControl: false
   });
+
+  // Contrôle de zoom en bas à droite (par défaut Leaflet le met en haut à gauche,
+  // ce qui chevauche le bouton menu ☰)
+  L.control.zoom({ position: "bottomright" }).addTo(leafletMap);
 
   // Tuiles CartoDB Dark Matter — carte sombre sans labels intrusifs
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
