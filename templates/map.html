@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte des connexions - Home-Fonta.fr</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='map.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
+</head>
+<body class="map-page">
+  <!-- Menu latéral (chargé dynamiquement comme les autres pages) -->
+  <div id="menu-placeholder"></div>
+
+  <!-- Conteneur du globe 3D — Globe.gl va injecter un <canvas> WebGL dedans -->
+  <div id="globe-container"></div>
+
+  <!-- Panneau de légende / statistiques (en bas à gauche) -->
+  <div id="stats-panel">
+    <h2>Connexions</h2>
+
+    <!-- Sélecteur de période — le JS écoute les clics pour changer le range -->
+    <div class="time-selector">
+      <button data-range="5m">5m</button>
+      <button data-range="15m">15m</button>
+      <button data-range="1h" class="active">1h</button>
+      <button data-range="6h">6h</button>
+      <button data-range="24h">24h</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-value" id="total-ips">-</span>
+        <span class="stat-label">IPs uniques</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="total-hits">-</span>
+        <span class="stat-label">Requetes</span>
+      </div>
+    </div>
+
+    <h3>Top pays</h3>
+    <ul id="top-countries">
+      <li>Chargement...</li>
+    </ul>
+
+    <!-- Feed des dernières connexions détectées -->
+    <h3>Dernieres connexions</h3>
+    <ul id="recent-feed" class="recent-feed">
+      <li>Chargement...</li>
+    </ul>
+  </div>
+
+  <!-- Bouton plein écran (en haut à droite) -->
+  <button id="fullscreen-btn" title="Plein ecran">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+    </svg>
+  </button>
+
+  <!-- Globe.gl depuis CDN — bibliothèque qui crée le globe 3D avec three.js -->
+  <script src="https://unpkg.com/globe.gl@2.35.1/dist/globe.gl.min.js"></script>
+
+  <!-- Notre script personnalisé pour le globe -->
+  <script src="{{ url_for('static', filename='map.js') }}"></script>
+
+  <!-- Chargement du menu (même pattern que toutes les autres pages) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/menu")
+        .then(res => {
+          if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+          return res.text();
+        })
+        .then(html => {
+          const placeholder = document.getElementById("menu-placeholder");
+          if (placeholder) placeholder.innerHTML = html;
+
+          const toggleButton = document.createElement("button");
+          toggleButton.classList.add("menu-toggle");
+          toggleButton.textContent = "\u2630";
+          document.body.appendChild(toggleButton);
+
+          const overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          document.body.appendChild(overlay);
+
+          setTimeout(() => {
+            const sidebar = document.querySelector(".sidebar");
+            if (!sidebar) return;
+
+            const toggleMenu = () => {
+              sidebar.classList.toggle("show");
+              overlay.classList.toggle("show");
+            };
+
+            toggleButton.addEventListener("click", toggleMenu);
+            overlay.addEventListener("click", toggleMenu);
+          }, 100);
+        })
+        .catch(err => console.error("Erreur menu:", err));
+    });
+  </script>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

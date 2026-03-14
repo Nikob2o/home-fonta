@@ -1,0 +1,242 @@
+/* =============================================================================
+   Carte des connexions — Globe 3D
+   Thème sombre cohérent avec le reste du site home-fonta.fr
+   ============================================================================= */
+
+/* --- Page entière : fond noir, pas de scroll, pas de background-image --- */
+body.map-page {
+  background: #000 !important;
+  background-image: none !important;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+/* Désactiver le watermark "Deus Vult" sur cette page */
+body.map-page::before {
+  display: none;
+}
+
+/* --- Conteneur du globe : remplit tout l'écran --- */
+#globe-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* --- Panneau de statistiques (légende) --- */
+/* Positionné en bas à gauche, semi-transparent avec un effet de flou (glassmorphism) */
+#stats-panel {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 280px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: rgba(10, 10, 30, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  font-family: 'Lora', serif;
+  z-index: 100;
+  /* Ombre subtile pour décoller le panneau du globe */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+#stats-panel h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3em;
+  margin: 0 0 12px 0;
+  color: #0ff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+#stats-panel h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9em;
+  margin: 16px 0 8px 0;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- Sélecteur de période (les boutons 5m, 1h, 24h...) --- */
+.time-selector {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.time-selector button {
+  flex: 1;
+  padding: 6px 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Lora', serif;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-selector button:hover {
+  background: rgba(0, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Le bouton actif a une bordure cyan + texte lumineux */
+.time-selector button.active {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.6);
+  color: #0ff;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+/* --- Grille des compteurs (IPs uniques / Requêtes) --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-value {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #0ff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.75em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+/* --- Listes (top pays + feed) --- */
+#stats-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#stats-panel li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  transition: background 0.2s ease;
+}
+
+#stats-panel li:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.country-name, .feed-location {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.country-hits, .feed-count {
+  color: #0ff;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: right;
+}
+
+/* --- Feed des dernières connexions --- */
+.recent-feed {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* Scrollbar fine et discrète (navigateurs WebKit/Blink) */
+.recent-feed::-webkit-scrollbar {
+  width: 4px;
+}
+
+.recent-feed::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recent-feed::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* --- Tooltip au survol d'un arc --- */
+/* Globe.gl injecte un div avec la classe qu'on lui a donnée dans arcLabel */
+.arc-tooltip {
+  background: rgba(10, 10, 30, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  font-family: 'Lora', serif;
+  font-size: 0.85em;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* --- Bouton plein écran --- */
+#fullscreen-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(10, 10, 30, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+#fullscreen-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+}
+
+/* --- Responsive : sur mobile, le panneau prend toute la largeur en bas --- */
+@media (max-width: 600px) {
+  #stats-panel {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    max-height: 40vh;
+    padding: 14px;
+  }
+
+  #stats-panel h2 {
+    font-size: 1.1em;
+  }
+
+  .stat-value {
+    font-size: 1.2em;
+  }
+}

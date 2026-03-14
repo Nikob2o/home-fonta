@@ -41,6 +41,23 @@ def test_menu_page(client):
     assert response.status_code == 200
 
 
+def test_map_page(client):
+    """Test that map page returns 200"""
+    response = client.get('/map')
+    assert response.status_code == 200
+
+
+def test_map_api(client):
+    """Test that map API returns valid JSON even without Loki"""
+    response = client.get('/api/map-data')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert 'arcs' in data
+    assert 'total_ips' in data
+    assert 'total_hits' in data
+    assert 'top_countries' in data
+
+
 def test_404_page(client):
     """Test that 404 page is returned for unknown routes"""
     response = client.get('/page-inexistante')
