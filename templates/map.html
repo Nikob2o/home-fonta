@@ -6,6 +6,8 @@
   <title>Carte des connexions - Home-Fonta.fr</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='map.css') }}">
+  <!-- Leaflet CSS pour la carte 2D -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="icon" href="{{ url_for('static', filename='images/ours.jpg') }}" type="image/png">
 </head>
 <body class="map-page">
@@ -14,6 +16,9 @@
 
   <!-- Conteneur du globe 3D — Globe.gl va injecter un <canvas> WebGL dedans -->
   <div id="globe-container"></div>
+
+  <!-- Conteneur de la carte 2D Leaflet (masqué par défaut) -->
+  <div id="map-container"></div>
 
   <!-- Panneau de légende / statistiques (en bas à gauche) -->
   <div id="stats-panel">
@@ -51,12 +56,21 @@
     </ul>
   </div>
 
+  <!-- Toggle 2D / 3D (en haut à droite, à côté du fullscreen) -->
+  <div id="view-toggle">
+    <button id="btn-3d" class="active" title="Globe 3D">3D</button>
+    <button id="btn-2d" title="Carte 2D">2D</button>
+  </div>
+
   <!-- Bouton plein écran (en haut à droite) -->
-  <button id="fullscreen-btn" title="Plein ecran">
+  <button id="fullscreen-btn" title="Plein écran">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
       <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
     </svg>
   </button>
+
+  <!-- Leaflet JS pour la carte 2D -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- Globe.gl depuis CDN — bibliothèque qui crée le globe 3D avec three.js -->
   <script src="https://unpkg.com/globe.gl@2.35.1/dist/globe.gl.min.js"></script>
