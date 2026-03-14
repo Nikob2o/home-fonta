@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   globe.pointOfView({ lat: 30, lng: 10, altitude: 2.2 });
 
   // Rotation automatique lente du globe (en degrés par seconde)
-  globe.controls().autoRotate = true;
+  globe.controls().autoRotate = false;
   globe.controls().autoRotateSpeed = 0.5;
 
   // ---- Chargement des données ----
