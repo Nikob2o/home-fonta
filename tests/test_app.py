@@ -62,3 +62,10 @@ def test_404_page(client):
     """Test that 404 page is returned for unknown routes"""
     response = client.get('/page-inexistante')
     assert response.status_code == 404
+
+def test_services_liste_premier_rang_et_ntfy(client):
+    """Les sites ouverts sur Internet figurent sur la page des services (pas changedetection, resté en LAN)."""
+    page = client.get('/services').get_data(as_text=True)
+    assert 'https://premier-rang.home-fonta.fr' in page
+    assert 'https://ntfy.home-fonta.fr' in page
+    assert 'changedetection' not in page
